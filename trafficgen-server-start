@@ -22,6 +22,7 @@ testpmd_enable_rss_udp="off"
 testpmd_devopt=""
 testpmd_mbuf_size=""
 testpmd_burst=""
+testpmd_mbcache=""
 
 # Options processing
 re='^(--[^=]+)=([^=]+)'
@@ -76,6 +77,9 @@ while [ $# -gt 0 ]; do
             ;;
         --testpmd-burst)
             testpmd_burst="$val"
+            ;;
+        --testpmd-mbcache)
+            testpmd_mbcache="$val"
             ;;
     esac
 done
@@ -240,6 +244,10 @@ fi
 
 if [ ! -z "$testpmd_burst" ]; then
     testpmd_opts+=" --burst=$testpmd_burst"
+fi
+
+if [ ! -z "$testpmd_mbcache" ]; then
+    testpmd_opts+=" --mbcache=$testpmd_mbcache"
 fi
 
 # Bump up the default mbuf if the MTU is large,
